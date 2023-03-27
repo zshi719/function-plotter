@@ -1,0 +1,34 @@
+Zichen (Victoria) Shi
+JHED ID: zshi34
+
+I. DESIGN
+
+The function read_input() in Reader class is invoked to read the plot file from input stream objects, which calls functions read_plot(), 
+read_function(), read_color(), read_fill() to read the plot, function, color, and fill directives. I made the Fill class abstract as how it fills depends on whether it is filling above, below, or between. The Reader creates an instance of the ExprParser class to recursively parse and evaluate the token and store the parsed object.
+
+The ExprParser class, which inherits from the Expr class, checks the validity of directives, including the function name, the number of arguments, and if parsed to the end of the file, etc. 
+
+I made the Expr class abstract as its behavior depends on the type of prefix. The  Expr class contains four derived expression classes, ExprX, ExprPi, ExprLiteral, and ExprFunc, depending on if the prefix is "x," "pi," a literal value, or a function. I also made ExprFunc an abstract class, as its behavior depends on the function evaluated. The ExprFunc also has derived classes implementing addition, subtraction, multiplication,  division, sines, and cosines. 
+
+Upon retrieving the bound information and storing the lists of functions in a vector of Function* objects, fill commands a vector of Fill* objects, and colors in a map data type,  the Plot class sets the bounds and carries out the plotting and coloring of the functions through set_bounds (),  insert_function (), insert_fill(), and set_func_color().
+
+When deciding the bounds and scales, I get the max and min of x-values, calculate the range, and evenly divide it to find the x-coordinates to be displayed. I used the push_back() method to store the list of x coordinates in a vector x_list(), which is later used to get the y values for each x through evaluating the function in the Renderer class. In the Renderer class, I used two helper functions, render_fill() and render_function(), to generate the fills and functions in the order in which they appear in the plot file. To produce the Image, I determine each pixel's x and y coordinates, iterate through every pixel in the Image,  map y-values to the y-axis, and adjust or set the opacity and color values as in the fill directive.  
+
+
+II. COMPLETENESS
+
+I think my solution is pretty complete at this point, after handling the error regarding invalid color input and 'x' itself as a function name as reported by the autograder. 
+
+Still there were two things I was not very sure:
+    1. ways to deal with the error of more than one Color directive. Initially, I tried to do this in the main function but later thought I should do it in the Plot class. So I checked the return value of func_color.count(name) to see more than 1 Color detected. 
+
+    2. the difference between "Has-A" and "Uses" was initially a bit vague to me, but I think I could now tell the difference after asking on Piazza.
+
+III. OTHER
+// any additional information you want the graders to know about your submission.
+
+Throughout the entire process, I could not reach any of my group members. 
+I completed the project completely individually, with the help of TAs.
+
+To graders: 
+Update (written on Jul 29, aftter final exam): Both of my group members responded on July 28, one day before the due date. It was the FIRST TIME in the past two weeks that I reached them. I had completed and submitted the project on GradeScope by that time and submitted it (though it turned out I was still debugging now). I talked to the professor about this, so he was aware of the situation. 
