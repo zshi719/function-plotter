@@ -54,21 +54,57 @@ This project implements a function plotter that demonstrates key concepts from I
 
 ## File Structure
 
+### Core Files
 ```
-├── bounds.{h,cpp}      - Handles plot boundaries and scaling
-├── color.h             - Color management
-├── exception.{h,cpp}   - Custom exception handling
-├── expr.{h,cpp}        - Expression tree implementation
-├── expr_parser.{h,cpp} - Mathematical expression parsing
-├── fill.{h,cpp}        - Fill area implementation
-├── func.{h,cpp}        - Function management
-├── image.{h,cpp}       - Image generation
-├── plot.{h,cpp}        - Plot configuration and management
-├── renderer.{h,cpp}    - Rendering engine
-├── reader.{h,cpp}      - Input parsing
-└── pnglite.{c,h}      - PNG file handling
+├── main.cpp           - Program entry point
+├── Makefile          - Build configuration
+├── README.md         - Project documentation
+├── UMLDiagram.pdf    - Class design documentation
+├── gitlog.txt        - Version control log
 ```
 
+### Expression System
+```
+├── expr/
+│   ├── expr.h        - Base expression interface
+│   ├── expr.cpp      - Expression implementation
+│   ├── expr_parser.h - Expression parsing interface
+│   └── expr_parser.cpp - Expression parser implementation
+```
+
+### Plot Components
+```
+├── plot/
+│   ├── plot.h        - Plot management interface
+│   ├── plot.cpp      - Plot implementation
+│   ├── bounds.h      - Boundary handling interface
+│   ├── bounds.cpp    - Boundary implementation
+│   ├── fill.h        - Fill area interface
+│   ├── fill.cpp      - Fill implementation
+│   ├── func.h        - Function interface
+│   └── func.cpp      - Function implementation
+```
+
+### Rendering System
+```
+├── render/
+│   ├── renderer.h    - Renderer interface
+│   ├── renderer.cpp  - Renderer implementation
+│   ├── image.h       - Image handling interface
+│   ├── image.cpp     - Image implementation
+│   ├── pnglite.h     - PNG library interface
+│   └── pnglite.c     - PNG library implementation
+```
+
+### Utility Components
+```
+├── util/
+│   ├── color.h       - Color definitions
+│   ├── exception.h   - Exception handling interface
+│   ├── exception.cpp - Exception implementation
+│   ├── reader.h      - Input reading interface
+│   └── reader.cpp    - Input reading implementation
+```
 ## Building
 
 Use the included Makefile:
