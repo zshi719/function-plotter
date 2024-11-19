@@ -1,34 +1,86 @@
-Zichen (Victoria) Shi
-JHED ID: zshi34
+# Function Plotter
 
-I. DESIGN
+A mathematical function plotting library developed as part of the Johns Hopkins University course:
+**EN.601.220 Intermediate Programming (Summer 2022)**
 
-The function read_input() in Reader class is invoked to read the plot file from input stream objects, which calls functions read_plot(), 
-read_function(), read_color(), read_fill() to read the plot, function, color, and fill directives. I made the Fill class abstract as how it fills depends on whether it is filling above, below, or between. The Reader creates an instance of the ExprParser class to recursively parse and evaluate the token and store the parsed object.
+## Course Project Overview
 
-The ExprParser class, which inherits from the Expr class, checks the validity of directives, including the function name, the number of arguments, and if parsed to the end of the file, etc. 
+This project implements a function plotter that demonstrates key concepts from Intermediate Programming including:
+- Object-oriented design
+- Data structures and algorithms
+- File I/O
+- Graphics programming
+- Error handling
 
-I made the Expr class abstract as its behavior depends on the type of prefix. The  Expr class contains four derived expression classes, ExprX, ExprPi, ExprLiteral, and ExprFunc, depending on if the prefix is "x," "pi," a literal value, or a function. I also made ExprFunc an abstract class, as its behavior depends on the function evaluated. The ExprFunc also has derived classes implementing addition, subtraction, multiplication,  division, sines, and cosines. 
+## Features
 
-Upon retrieving the bound information and storing the lists of functions in a vector of Function* objects, fill commands a vector of Fill* objects, and colors in a map data type,  the Plot class sets the bounds and carries out the plotting and coloring of the functions through set_bounds (),  insert_function (), insert_fill(), and set_func_color().
+- Parse and plot mathematical expressions
+- Support for multiple mathematical functions:
+  - Trigonometric functions (sin, cos)
+  - Basic arithmetic operations (+, -, *, /)
+- Customizable plot bounds and dimensions
+- Fill options:
+  - Fill above function
+  - Fill below function
+  - Fill between functions
+- Custom color support for functions and fills
+- PNG output generation
 
-When deciding the bounds and scales, I get the max and min of x-values, calculate the range, and evenly divide it to find the x-coordinates to be displayed. I used the push_back() method to store the list of x coordinates in a vector x_list(), which is later used to get the y values for each x through evaluating the function in the Renderer class. In the Renderer class, I used two helper functions, render_fill() and render_function(), to generate the fills and functions in the order in which they appear in the plot file. To produce the Image, I determine each pixel's x and y coordinates, iterate through every pixel in the Image,  map y-values to the y-axis, and adjust or set the opacity and color values as in the fill directive.  
+## Components
 
+### Core Components
 
-II. COMPLETENESS
+- **Expression Parser**: Parses mathematical expressions into evaluatable trees
+- **Function Handler**: Manages mathematical functions and their properties
+- **Plot Manager**: Controls plot settings, functions, and fills
+- **Renderer**: Generates the final image output
 
-I think my solution is pretty complete at this point, after handling the error regarding invalid color input and 'x' itself as a function name as reported by the autograder. 
+### Expression Support
 
-Still there were two things I was not very sure:
-    1. ways to deal with the error of more than one Color directive. Initially, I tried to do this in the main function but later thought I should do it in the Plot class. So I checked the return value of func_color.count(name) to see more than 1 Color detected. 
+- Variables (x)
+- Constants (π)
+- Literals (numbers)
+- Functions:
+  - Trigonometric (sin, cos)
+  - Arithmetic operations (+, -, *, /)
 
-    2. the difference between "Has-A" and "Uses" was initially a bit vague to me, but I think I could now tell the difference after asking on Piazza.
+### Visualization Features
 
-III. OTHER
-// any additional information you want the graders to know about your submission.
+- Customizable bounds (xmin, xmax, ymin, ymax)
+- Adjustable image dimensions (width, height)
+- Color customization for functions
+- Fill opacity control
+- PNG image output
 
-Throughout the entire process, I could not reach any of my group members. 
-I completed the project completely individually, with the help of TAs.
+## File Structure
 
-To graders: 
-Update (written on Jul 29, aftter final exam): Both of my group members responded on July 28, one day before the due date. It was the FIRST TIME in the past two weeks that I reached them. I had completed and submitted the project on GradeScope by that time and submitted it (though it turned out I was still debugging now). I talked to the professor about this, so he was aware of the situation. 
+```
+├── bounds.{h,cpp}      - Handles plot boundaries and scaling
+├── color.h             - Color management
+├── exception.{h,cpp}   - Custom exception handling
+├── expr.{h,cpp}        - Expression tree implementation
+├── expr_parser.{h,cpp} - Mathematical expression parsing
+├── fill.{h,cpp}        - Fill area implementation
+├── func.{h,cpp}        - Function management
+├── image.{h,cpp}       - Image generation
+├── plot.{h,cpp}        - Plot configuration and management
+├── renderer.{h,cpp}    - Rendering engine
+├── reader.{h,cpp}      - Input parsing
+└── pnglite.{c,h}      - PNG file handling
+```
+
+## Building
+
+Use the included Makefile:
+
+```bash
+make
+```
+
+## Academic Integrity
+
+This code is part of the JHU EN.601.220 Intermediate Programming course. Please follow your institution's academic integrity guidelines when viewing or using this code.
+
+## License
+
+Course Material - Johns Hopkins University EN.601.220 Intermediate Programming (Summer 2022)
